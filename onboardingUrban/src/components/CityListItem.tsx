@@ -11,10 +11,10 @@ export const CityItem: FC<CityItemProps> = ({ cityName, onPress }) => {
   return (
     <Pressable
       accessibilityRole="button"
-      onPress={() => onPress()}
+      onPress={onPress}
       style={styles.listItemContainer}
     >
-      <View style={styles.cityDescriptionContainer}>
+      <View style={styles.leftSectionContainer}>
         <View>
           <Image
             source={{ uri: `https://openweathermap.org/img/wn/10d@2x.png` }}
@@ -23,15 +23,17 @@ export const CityItem: FC<CityItemProps> = ({ cityName, onPress }) => {
           />
         </View>
         <View style={styles.cityNameAndStatusContainer}>
-          <Text>{cityName}</Text>
-          <Text>Weather status</Text>
+          <Text style={styles.cityNameLabel}>{cityName}</Text>
+          <Text style={styles.weatherStatusLabel}>Weather status</Text>
         </View>
       </View>
-      <View style={styles.temperatureLabelContainer}>
-        <Text style={styles.temperatureText}>39</Text>
-        <Text style={styles.temperatureUnitText}>°C</Text>
+      <View style={styles.rightSectionContainer}>
+        <View style={styles.temperatureLabelContainer}>
+          <Text style={styles.temperatureText}>39</Text>
+          <Text style={styles.temperatureUnitText}>°C</Text>
+        </View>
+        <Icon name="chevron-thin-right" size={25} color={grey} />
       </View>
-      <Icon name="chevron-thin-right" size={25} />
     </Pressable>
   );
 };
@@ -39,6 +41,7 @@ export const CityItem: FC<CityItemProps> = ({ cityName, onPress }) => {
 const babyBlue = "rgb(171,219,227)";
 const grey = "grey";
 const white = "rgb(255,255,255)";
+const dividerGrey = "rgb(214, 214, 214)";
 
 const styles = StyleSheet.create({
   listItemContainer: {
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     borderBottomWidth: 1,
-    borderColor: grey,
+    borderColor: dividerGrey,
     justifyContent: "space-between",
     alignItems: "center",
   },
@@ -57,10 +60,19 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     flexDirection: "row",
     color: white,
+    marginRight: 10,
   },
-  cityDescriptionContainer: { flexDirection: "row", alignItems: "center" },
+  leftSectionContainer: { flexDirection: "row", alignItems: "center" },
+  cityNameLabel: { fontWeight: "500", fontSize: 18 },
+  weatherStatusLabel: { fontWeight: "300" },
   cityNameAndStatusContainer: { flexDirection: "column", marginLeft: 15 },
-  temperatureText: { color: white },
-  temperatureUnitText: { marginLeft: 5, color: white },
+  temperatureText: { color: white, fontSize: 18, fontWeight: "500" },
+  temperatureUnitText: {
+    marginLeft: 5,
+    color: white,
+    fontSize: 18,
+    fontWeight: "500",
+  },
   weatherIcon: { width: 60, height: 60 },
+  rightSectionContainer: { flexDirection: "row", alignItems: "center" },
 });
