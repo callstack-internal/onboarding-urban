@@ -1,13 +1,18 @@
 import React, { FC } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
 interface CityItemProps {
   cityName: string;
+  onPress: () => void;
 }
 
-export const CityItem: FC<CityItemProps> = ({ cityName }) => {
+export const CityItem: FC<CityItemProps> = ({ cityName, onPress }) => {
   return (
-    <View style={styles.listItemContainer}>
+    <Pressable
+      accessibilityRole="button"
+      onPress={() => onPress()}
+      style={styles.listItemContainer}
+    >
       <View style={styles.cityDescriptionContainer}>
         <View>
           <Text>ICON</Text>
@@ -21,7 +26,7 @@ export const CityItem: FC<CityItemProps> = ({ cityName }) => {
         <Text style={styles.temperatureText}>39</Text>
         <Text style={styles.temperatureUnitText}>°C</Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
