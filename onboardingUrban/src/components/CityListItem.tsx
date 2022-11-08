@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Image } from "react-native";
+import Icon from "react-native-vector-icons/Entypo";
 
 interface CityItemProps {
   cityName: string;
@@ -15,7 +16,11 @@ export const CityItem: FC<CityItemProps> = ({ cityName, onPress }) => {
     >
       <View style={styles.cityDescriptionContainer}>
         <View>
-          <Text>ICON</Text>
+          <Image
+            source={{ uri: `https://openweathermap.org/img/wn/10d@2x.png` }}
+            accessibilityIgnoresInvertColors
+            style={styles.weatherIcon}
+          />
         </View>
         <View style={styles.cityNameAndStatusContainer}>
           <Text>{cityName}</Text>
@@ -26,6 +31,7 @@ export const CityItem: FC<CityItemProps> = ({ cityName, onPress }) => {
         <Text style={styles.temperatureText}>39</Text>
         <Text style={styles.temperatureUnitText}>°C</Text>
       </View>
+      <Icon name="chevron-thin-right" size={25} />
     </Pressable>
   );
 };
@@ -56,4 +62,5 @@ const styles = StyleSheet.create({
   cityNameAndStatusContainer: { flexDirection: "column", marginLeft: 15 },
   temperatureText: { color: white },
   temperatureUnitText: { marginLeft: 5, color: white },
+  weatherIcon: { width: 60, height: 60 },
 });

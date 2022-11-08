@@ -5,6 +5,12 @@ import { HomeScreen } from "../screens/HomeScreen";
 import { WeatherDetailsScreen } from "../screens/WeatherDetailsScreen";
 
 const Stack = createNativeStackNavigator();
+const CommonScreenOptions = {
+  headerTintColor: "rgb(0, 0, 0)",
+  headerStyle: {
+    backgroundColor: "rgb(227, 227, 227)",
+  },
+};
 export const MainNavigator = () => {
   return (
     <NavigationContainer>
@@ -12,12 +18,15 @@ export const MainNavigator = () => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: "Weather" }}
+          options={{
+            title: "Weather",
+            ...CommonScreenOptions,
+          }}
         />
         <Stack.Screen
           name="Details"
           component={WeatherDetailsScreen}
-          options={{ title: "Details" }}
+          options={{ title: "Details", ...CommonScreenOptions }}
         />
       </Stack.Navigator>
     </NavigationContainer>
