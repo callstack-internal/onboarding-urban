@@ -2,12 +2,12 @@ import React, { FC } from "react";
 import { View, Text, StyleSheet, Pressable, Image } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 
-interface CityItemProps {
+interface CityTileProps {
   cityName: string;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
-export const CityItem: FC<CityItemProps> = ({ cityName, onPress }) => {
+export const CityTileComponent: FC<CityTileProps> = ({ cityName, onPress }) => {
   return (
     <Pressable
       accessibilityRole="button"
@@ -32,7 +32,14 @@ export const CityItem: FC<CityItemProps> = ({ cityName, onPress }) => {
           <Text style={styles.temperatureText}>39</Text>
           <Text style={styles.temperatureUnitText}>°C</Text>
         </View>
-        <Icon name="chevron-thin-right" size={25} color={grey} />
+        {onPress && (
+          <Icon
+            name="chevron-thin-right"
+            size={25}
+            color={grey}
+            style={styles.goToDetailsIcon}
+          />
+        )}
       </View>
     </Pressable>
   );
@@ -46,7 +53,6 @@ const dividerGrey = "rgb(214, 214, 214)";
 const styles = StyleSheet.create({
   listItemContainer: {
     padding: 10,
-    flex: 1,
     flexDirection: "row",
     borderBottomWidth: 1,
     borderColor: dividerGrey,
@@ -60,8 +66,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     flexDirection: "row",
     color: white,
-    marginRight: 10,
   },
+  goToDetailsIcon: { marginLeft: 10 },
   leftSectionContainer: { flexDirection: "row", alignItems: "center" },
   cityNameLabel: { fontWeight: "500", fontSize: 18 },
   weatherStatusLabel: { fontWeight: "300" },

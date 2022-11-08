@@ -2,7 +2,7 @@ import React from "react";
 import { FlatList, SafeAreaView, StatusBar } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { CITIES_LIST } from "../common/constants";
-import { CityItem } from "../components/CityListItem";
+import { CityTileComponent } from "../components/CityTileComponent";
 
 export const HomeScreen = ({ navigation }) => {
   const backgroundStyle = {
@@ -14,7 +14,9 @@ export const HomeScreen = ({ navigation }) => {
   };
 
   const renderItem = ({ item }) => {
-    return <CityItem cityName={item} onPress={() => onItemPress(item)} />;
+    return (
+      <CityTileComponent cityName={item} onPress={() => onItemPress(item)} />
+    );
   };
 
   return (
