@@ -1,3 +1,4 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import {
   FlatList,
@@ -5,24 +6,31 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import { CITIES_LIST } from "../common/constants";
+import { useGetBulkWeather } from "../common/hooks/useGetBulkWeather";
+import { Weather } from "../common/types/Weather";
 import { CityTileComponent } from "../components/CityTileComponent";
+import { RootStackParamList } from "../navigators/MainNavigator";
+type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
-export const HomeScreen = ({ navigation }) => {
+export const HomeScreen = ({ navigation }: Props) => {
+  const { data } = useGetBulkWeather();
+
   const backgroundStyle = {
-    backgroundColor: Colors.lighter,
+    backgroundColor: "rgb(255, 255, 255)",
   };
 
-  const onItemPress = (cityId: string) => {
-    navigation.navigate("Details", { cityId });
+  const onItemPress = (weather: Weather) => {
+    navigation.navigate("Details", { weather });
   };
 
-  const renderItem = ({ item }: ListRenderItemInfo<number>) => {
+  const renderItem = ({ item }: ListRenderItemInfo<Weather>) => {
     return (
       <CityTileComponent
-        cityName={item.toString()}
-        onPress={() => onItemPress(item.toString())}
+        cityName={item.name}
+        weatherStatus={item.weather[0].description}
+        temperature={item.main.temp}
+        iconSignature={item.weather[0].icon}
+        onPress={() => onItemPress(item)}
       />
     );
   };
@@ -34,7 +42,7 @@ export const HomeScreen = ({ navigation }) => {
         backgroundColor={backgroundStyle.backgroundColor}
       />
 
-      <FlatList data={CITIES_LIST} renderItem={renderItem} />
+      <FlatList data={data?.list ?? []} renderItem={renderItem} />
     </SafeAreaView>
   );
 };

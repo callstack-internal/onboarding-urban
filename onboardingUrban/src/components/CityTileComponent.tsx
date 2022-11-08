@@ -4,10 +4,19 @@ import Icon from "react-native-vector-icons/Entypo";
 
 interface CityTileProps {
   cityName: string;
+  weatherStatus: string;
+  temperature: number;
+  iconSignature: string;
   onPress?: () => void;
 }
 
-export const CityTileComponent: FC<CityTileProps> = ({ cityName, onPress }) => {
+export const CityTileComponent: FC<CityTileProps> = ({
+  cityName,
+  onPress,
+  weatherStatus,
+  temperature,
+  iconSignature,
+}) => {
   return (
     <Pressable
       accessibilityRole="button"
@@ -17,19 +26,21 @@ export const CityTileComponent: FC<CityTileProps> = ({ cityName, onPress }) => {
       <View style={styles.leftSectionContainer}>
         <View>
           <Image
-            source={{ uri: `https://openweathermap.org/img/wn/10d@2x.png` }}
+            source={{
+              uri: `https://openweathermap.org/img/wn/${iconSignature}@2x.png`,
+            }}
             accessibilityIgnoresInvertColors
             style={styles.weatherIcon}
           />
         </View>
         <View style={styles.cityNameAndStatusContainer}>
           <Text style={styles.cityNameLabel}>{cityName}</Text>
-          <Text style={styles.weatherStatusLabel}>Weather status</Text>
+          <Text style={styles.weatherStatusLabel}>{weatherStatus}</Text>
         </View>
       </View>
       <View style={styles.rightSectionContainer}>
         <View style={styles.temperatureLabelContainer}>
-          <Text style={styles.temperatureText}>39</Text>
+          <Text style={styles.temperatureText}>{temperature}</Text>
           <Text style={styles.temperatureUnitText}>°C</Text>
         </View>
         {onPress && (
