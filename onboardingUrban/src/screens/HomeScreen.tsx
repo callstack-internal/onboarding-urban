@@ -1,5 +1,10 @@
 import React from "react";
-import { FlatList, SafeAreaView, StatusBar } from "react-native";
+import {
+  FlatList,
+  ListRenderItemInfo,
+  SafeAreaView,
+  StatusBar,
+} from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { CITIES_LIST } from "../common/constants";
 import { CityTileComponent } from "../components/CityTileComponent";
@@ -13,9 +18,12 @@ export const HomeScreen = ({ navigation }) => {
     navigation.navigate("Details", { cityId });
   };
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item }: ListRenderItemInfo<number>) => {
     return (
-      <CityTileComponent cityName={item} onPress={() => onItemPress(item)} />
+      <CityTileComponent
+        cityName={item.toString()}
+        onPress={() => onItemPress(item.toString())}
+      />
     );
   };
 
