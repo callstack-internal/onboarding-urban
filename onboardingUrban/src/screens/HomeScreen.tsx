@@ -1,10 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import {
+  ActivityIndicator,
   FlatList,
   ListRenderItemInfo,
   SafeAreaView,
   StatusBar,
+  StyleSheet,
 } from "react-native";
 import { useGetBulkWeather } from "../common/hooks/useGetBulkWeather";
 import { Weather } from "../common/types/Weather";
@@ -13,10 +15,11 @@ import { RootStackParamList } from "../navigators/MainNavigator";
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
 export const HomeScreen = ({ navigation }: Props) => {
-  const { data } = useGetBulkWeather();
+  const { data, isLoading } = useGetBulkWeather();
 
   const backgroundStyle = {
     backgroundColor: "rgb(255, 255, 255)",
+    flex: 1,
   };
 
   const onItemPress = (weather: Weather) => {
@@ -42,7 +45,15 @@ export const HomeScreen = ({ navigation }: Props) => {
         backgroundColor={backgroundStyle.backgroundColor}
       />
 
-      <FlatList data={data?.list ?? []} renderItem={renderItem} />
+      {isLoading ? (
+        <ActivityIndicator size={"large"} style={styles.loading} />
+      ) : (
+        <FlatList data={data?.list ?? []} renderItem={renderItem} />
+      )}
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  loading: { position: "absolute", left: 0, top: 0, bottom: 0, right: 0 },
+});
