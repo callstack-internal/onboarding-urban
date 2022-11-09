@@ -24,5 +24,9 @@ export const getBulkWeatherForecast = async (): Promise<
     queryParams
   );
 
+  if (!response.ok) {
+    throw new Error(`There was a network error. ${response.problem}`);
+  }
+
   return response.data;
 };
