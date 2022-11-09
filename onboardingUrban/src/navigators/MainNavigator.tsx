@@ -3,8 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from "../screens/HomeScreen";
 import { WeatherDetailsScreen } from "../screens/WeatherDetailsScreen";
+import { Weather } from "../common/types/Weather";
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  Details: { weather: Weather };
+};
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const CommonScreenOptions = {
   headerTintColor: "rgb(0, 0, 0)",
   headerStyle: {
