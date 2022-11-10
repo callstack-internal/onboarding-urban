@@ -46,7 +46,11 @@ export const HomeScreen = ({ navigation }: Props) => {
       />
 
       {isLoading ? (
-        <ActivityIndicator size={"large"} style={styles.loading} />
+        <ActivityIndicator
+          size={"large"}
+          style={styles.loading}
+          accessibilityHint={"loading"}
+        />
       ) : (
         <FlatList data={data?.list ?? []} renderItem={renderItem} />
       )}
