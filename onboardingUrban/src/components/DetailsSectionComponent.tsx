@@ -8,8 +8,18 @@ interface SectionProps {
 export const DetailsSectionComponent: FC<SectionProps> = ({ title, value }) => {
   return (
     <View style={styles.detailsSectionContainer}>
-      <Text style={styles.sectionTitle}>{title}</Text>
-      <Text style={styles.sectionValue}>{value}</Text>
+      <Text
+        accessibilityHint="details section title"
+        style={styles.sectionTitle}
+      >
+        {title}
+      </Text>
+      <Text
+        accessibilityHint="details section value"
+        style={styles.sectionValue}
+      >
+        {value}
+      </Text>
     </View>
   );
 };
